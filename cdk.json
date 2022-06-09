@@ -1,5 +1,5 @@
 {
-  "app": "go mod download && go run infrastructure_cdk_sample_go.go",
+  "app": "go mod download && go run infrastructure_cdk_sample_go.go network_stack.go properties.go",
   "watch": {
     "include": [
       "**"

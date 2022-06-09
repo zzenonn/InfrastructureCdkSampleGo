@@ -1,10 +1,7 @@
 # Welcome to your CDK Go project!
 
-This is a blank project for CDK development with Go.
+This is a port of [zzenonn/InfrastructureCdkSample](https://github.com/zzenonn/InfrastructureCdkSample)
 
-**NOTICE**: Go support is still in Developer Preview. This implies that APIs may
-change while we address early feedback from the community. We would love to hear
-about your experience through GitHub issues.
 
 ## Useful commands
 
