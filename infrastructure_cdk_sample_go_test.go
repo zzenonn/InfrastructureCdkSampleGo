@@ -1,26 +1,28 @@
 package main
 
-// import (
-// 	"testing"
+import (
+	"testing"
 
-// 	"github.com/aws/aws-cdk-go/awscdk/v2"
-// 	assertions "github.com/aws/aws-cdk-go/awscdk/v2/assertions"
-// 	"github.com/aws/jsii-runtime-go"
-// )
+	"github.com/aws/aws-cdk-go/awscdk/v2"
+	assertions "github.com/aws/aws-cdk-go/awscdk/v2/assertions"
+	"github.com/aws/jsii-runtime-go"
+)
 
 // example tests. To run these tests, uncomment this file along with the
 // example resource in infrastructure_cdk_sample_go_test.go
-// func TestInfrastructureCdkSampleGoStack(t *testing.T) {
-// 	// GIVEN
-// 	app := awscdk.NewApp(nil)
+func TestNetworkStack(t *testing.T) {
+	// GIVEN
+	app := awscdk.NewApp(nil)
 
-// 	// WHEN
-// 	stack := NewInfrastructureCdkSampleGoStack(app, "MyStack", nil)
+	// WHEN
+	vpc := NetworkStack(app, "NetworkStack", &InfrastructureCdkSampleGoStackProps{
+		awscdk.StackProps{
+			Env: env(),
+		},
+	}, CreateVpcProps())
 
-// 	// THEN
-// 	template := assertions.Template_FromStack(stack)
+	// THEN
+	template := assertions.Template_FromStack(vpc.Stack())
 
-// 	template.HasResourceProperties(jsii.String("AWS::SQS::Queue"), map[string]interface{}{
-// 		"VisibilityTimeout": 300,
-// 	})
-// }
+	template.ResourceCountIs(jsii.String("AWS::EC2::VPC"), jsii.Number(1))
+}
