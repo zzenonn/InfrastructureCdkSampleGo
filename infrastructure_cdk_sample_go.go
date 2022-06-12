@@ -20,7 +20,7 @@ func main() {
 
 	vpc := NewNetworkStack(app, "NetworkStack", appProps, CreateVpcProps())
 
-	NewInstanceStack(app, "InstanceStack", appProps, vpc, 10, 10, "blah", "test", true, "t3.micro")
+	NewInstanceStack(app, "InstanceStack", appProps, CreateAsgProps(), vpc, "test", true, "t3.micro")
 
 	app.Synth(nil)
 }
