@@ -3,6 +3,7 @@ package main
 import (
 	autoscaling "github.com/aws/aws-cdk-go/awscdk/v2/awsautoscaling"
 	ec2 "github.com/aws/aws-cdk-go/awscdk/v2/awsec2"
+	ecspatterns "github.com/aws/aws-cdk-go/awscdk/v2/awsecspatterns"
 	jsii "github.com/aws/jsii-runtime-go"
 )
 
@@ -32,6 +33,26 @@ func CreateAsgProps() *autoscaling.AutoScalingGroupProps {
 	}
 
 	return &asgProps
+}
+
+func CreateApplicationLoadBalancedFargateServiceProps() *ecspatterns.ApplicationLoadBalancedFargateServiceProps {
+	ecsProps := &ecspatterns.ApplicationLoadBalancedFargateServiceProps{
+		Cluster:            nil, //to be assigned later
+		Cpu:                jsii.Number(256),
+		MemoryLimitMiB:     jsii.Number(512),
+		DesiredCount:       jsii.Number(3),
+		ListenerPort:       jsii.Number(80),
+		PublicLoadBalancer: jsii.Bool(true),
+		TaskImageOptions: &ecspatterns.ApplicationLoadBalancedTaskImageOptions{
+			ContainerPort: jsii.Number(80),
+			ContainerName: jsii.String("GlobomanticsLandingPage"),
+			Image:         nil, //to be assigned later
+		},
+		TaskSubnets: &ec2.SubnetSelection{
+			SubnetType: ec2.SubnetType_PRIVATE_WITH_NAT,
+		},
+	}
+	return ecsProps
 }
 
 func CreateVpcProps() *ec2.VpcProps {

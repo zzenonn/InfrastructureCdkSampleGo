@@ -47,7 +47,7 @@ func NewInstanceStack(scope constructs.Construct, id string, props *Infrastructu
 		keyresp, keyerr := ec2svc.CreateKeyPair(context.TODO(), &ec2sdk.CreateKeyPairInput{KeyName: aws.String(keyName)})
 
 		log.Print(*keyresp.KeyMaterial)
-
+		
 		if keyerr != nil {
 			log.Fatalf("failed to create key pair, %v", keyerr)
 		}

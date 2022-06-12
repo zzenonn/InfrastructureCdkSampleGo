@@ -22,6 +22,8 @@ func main() {
 
 	NewInstanceStack(app, "InstanceStack", appProps, CreateAsgProps(), vpc, "test", true, "t3.micro")
 
+	NewEcsStack(app, "EcsStack", appProps, CreateApplicationLoadBalancedFargateServiceProps(), vpc)
+
 	app.Synth(nil)
 }
 
