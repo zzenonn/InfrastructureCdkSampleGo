@@ -9,7 +9,7 @@ import (
 	jsii "github.com/aws/jsii-runtime-go"
 )
 
-func NetworkStack(scope constructs.Construct, id string, props *InfrastructureCdkSampleGoStackProps, networkProps *ec2.VpcProps) ec2.Vpc {
+func NewNetworkStack(scope constructs.Construct, id string, props *InfrastructureCdkSampleGoStackProps, networkProps *ec2.VpcProps) ec2.Vpc {
 	var stackProps cdk.StackProps
 	if props != nil {
 		stackProps = props.StackProps
@@ -32,7 +32,7 @@ func NetworkStack(scope constructs.Construct, id string, props *InfrastructureCd
 	for index, subnet := range *privateSubnets {
 		resourceName := fmt.Sprintf("DbNaclIngress%d", (1+index)*100)
 		isolatedNacl.AddEntry(&resourceName, &ec2.CommonNetworkAclEntryOptions{
-			RuleNumber: jsii.Number(float64(index * 100)),
+			RuleNumber: jsii.Number(float64((1 + index) * 100)),
 			Cidr:       ec2.AclCidr_Ipv4(subnet.Ipv4CidrBlock()),
 			Traffic:    ec2.AclTraffic_TcpPort(jsii.Number(5432)), //postgres port
 			Direction:  ec2.TrafficDirection_INGRESS,
@@ -43,7 +43,7 @@ func NetworkStack(scope constructs.Construct, id string, props *InfrastructureCd
 	for index, subnet := range *privateSubnets {
 		resourceName := fmt.Sprintf("DbNaclEgress%d", (1+index)*100)
 		isolatedNacl.AddEntry(&resourceName, &ec2.CommonNetworkAclEntryOptions{
-			RuleNumber: jsii.Number(float64(index * 100)),
+			RuleNumber: jsii.Number(float64((1 + index) * 100)),
 			Cidr:       ec2.AclCidr_Ipv4(subnet.Ipv4CidrBlock()),
 			Traffic:    ec2.AclTraffic_TcpPortRange(jsii.Number(1024), jsii.Number(65535)), //Dynamic ports
 			Direction:  ec2.TrafficDirection_EGRESS,

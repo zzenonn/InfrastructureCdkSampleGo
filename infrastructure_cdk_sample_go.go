@@ -12,11 +12,15 @@ type InfrastructureCdkSampleGoStackProps struct {
 func main() {
 	app := awscdk.NewApp(nil)
 
-	NetworkStack(app, "NetworkStack", &InfrastructureCdkSampleGoStackProps{
+	appProps := &InfrastructureCdkSampleGoStackProps{
 		awscdk.StackProps{
 			Env: env(),
 		},
-	}, CreateVpcProps())
+	}
+
+	vpc := NewNetworkStack(app, "NetworkStack", appProps, CreateVpcProps())
+
+	NewInstanceStack(app, "InstanceStack", appProps, vpc, 10, 10, "blah", "test", true, "t3.micro")
 
 	app.Synth(nil)
 }

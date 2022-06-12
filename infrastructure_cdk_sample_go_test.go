@@ -15,7 +15,7 @@ func TestNetworkStack(t *testing.T) {
 	app := awscdk.NewApp(nil)
 
 	// WHEN
-	vpc := NetworkStack(app, "NetworkStack", &InfrastructureCdkSampleGoStackProps{
+	vpc := NewNetworkStack(app, "NetworkStack", &InfrastructureCdkSampleGoStackProps{
 		awscdk.StackProps{
 			Env: env(),
 		},
